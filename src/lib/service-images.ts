@@ -1,0 +1,12 @@
+import hotel from "@/assets/gallery-1.jpg";
+import staffing from "@/assets/gallery-2.jpg";
+import restaurant from "@/assets/gallery-3.jpg";
+import commercial from "@/assets/gallery-4.jpg";
+import type { ServiceSlug } from "./translations";
+
+export const SERVICE_IMAGES: Record<ServiceSlug, string> = {
+  "hotel-housekeeping": hotel,
+  staffing,
+  "restaurant-cleaning": restaurant,
+  "commercial-cleaning": commercial,
+};
