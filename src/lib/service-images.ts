@@ -10,3 +10,11 @@ export const SERVICE_IMAGES: Record<ServiceSlug, string> = {
   "restaurant-cleaning": restaurant,
   "commercial-cleaning": commercial,
 };
+
+export const SERVICE_PATHS = {
+  "hotel-housekeeping": "/services/hotel-housekeeping",
+  staffing: "/services/staffing",
+  "restaurant-cleaning": "/services/restaurant-cleaning",
+  "commercial-cleaning": "/services/commercial-cleaning",
+} as const;
+
