@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
-import { Logo } from "./Logo";
+import logo from "@/assets/logo.jpeg.asset.json";
 import { useI18n } from "@/lib/i18n";
 import { COMPANY } from "@/lib/translations";
+
 
 export function Footer() {
   const { t } = useI18n();
@@ -20,7 +21,16 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <Logo variant="light" />
+            <span className="inline-flex items-center rounded-2xl bg-white p-3 shadow-elegant">
+              <img
+                src={logo.url}
+                alt="Diamond Clean NH"
+                className="h-20 w-auto object-contain"
+                width={260}
+                height={80}
+              />
+            </span>
+
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-navy-foreground/70">
               {t.footer.tagline}
             </p>
