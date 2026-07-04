@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 
 interface Sparkle {
@@ -10,6 +10,9 @@ interface Sparkle {
 }
 
 export function Sparkles({ count = 18 }: { count?: number }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const sparkles = useMemo<Sparkle[]>(
     () =>
       Array.from({ length: count }).map(() => ({
@@ -21,6 +24,9 @@ export function Sparkles({ count = 18 }: { count?: number }) {
       })),
     [count],
   );
+
+  if (!mounted) return null;
+
 
   return (
     <div
