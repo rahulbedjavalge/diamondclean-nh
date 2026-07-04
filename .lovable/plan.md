@@ -1,59 +1,39 @@
-# Diamond Clean NH — Premium Cleaning Website
+# Diamond Clean NH — Refinements & Service Pages
 
-A luxurious, fully responsive marketing site for a Berlin cleaning company. Apple × Tesla × premium German service aesthetic: lots of white space, navy text, red accents only for actions, glassmorphism, smooth animations, and a bilingual English/German toggle. Contact and quote requests are stored in the database and emailed to the business.
+Based on the reference site (msreinigungservice.com) and your notes.
 
-## Brand & Foundations
+## 1. Remove numbers & stats
+- **About section**: delete the 4-column animated counters block (Happy Clients, Years Experience, Cleanings Done, Insured) and the floating "10+ Years" badge over the photo.
+- **Hero**: remove the stats row (100% Satisfaction / 500+ / Eco).
+- Clean up now-unused `AnimatedCounter` usage and `counters` data.
 
-- **Colors** (design tokens in `src/styles.css`): Primary Red `#B3132D`, Deep Navy `#0F1235`, White `#FFFFFF`, Light Gray `#F7F8FA`. Navy text on white; red reserved for buttons/highlights.
-- **Typography**: Poppins (headings, bold) + Manrope (body), self-hosted via `@fontsource` packages.
-- **Logo**: The uploaded Diamond Clean NH logo, added as a Lovable asset and used in the nav and footer.
-- **Motion**: Framer Motion for fade-in-on-scroll, hover lifts, floating sparkles, animated counters.
-- **Icons**: Lucide.
+## 2. Remove "Our Work"
+- Remove the Gallery ("Our Work") section from the homepage and from the nav/footer links.
 
-## Language toggle (EN/DE)
+## 3. Logo changes
+- **Header**: increase logo size (from ~44px tall to ~64px) so it reads clearly.
+- **Header visibility fix**: the header is currently transparent over the dark hero, so the dark logo/links are invisible at the top of the page. Give the header a solid, always-visible background (white with subtle shadow) from the first paint — no more invisible start state.
+- **Footer**: replace the text/icon logo with the actual uploaded logo image, shown larger, on a light chip so it stays visible against the dark navy footer.
 
-- A lightweight React context holds the active language (persisted to `localStorage`), with a toggle in the sticky nav.
-- All copy lives in a single `translations` dictionary (`en` / `de`) so both languages stay in sync. Content defaults to the English copy from the brief; German is a professional translation of the same.
+## 4. Services — like the reference site
+Replace the current 10-card grid with **4 service categories**, matching msreinigungservice, each opening its **own page**:
 
-## Page structure (single scrolling landing page + legal routes)
+1. Hotel Housekeeping
+2. Staffing (Personalbesetzung)
+3. Restaurant Cleaning
+4. Commercial Cleaning
 
-Main route `/` composed of sections, each with smooth-scroll anchor nav:
-
-1. **Sticky nav** — logo, section links, language toggle, red "Get Quote" button. Scroll progress indicator bar on top.
-2. **Hero** — full-width premium background image (AI-generated luxury office being cleaned), headline, subheading, "Get Free Quote" + "Call Now" buttons, elegant floating sparkle animation, logo.
-3. **About** — story copy + supporting image + trust points (Experience, Reliable Staff, Eco Friendly, Customer Satisfaction) with animated counters.
-4. **Services** — premium cards with icons for all 10 services, hover animation.
-5. **Why Choose Us** — 8 benefit items with icons in a spacious grid.
-6. **Our Process** — 4-step animated timeline.
-7. **Gallery** — masonry grid of AI-generated cleaning images, hover zoom, click-to-open lightbox.
-8. **Testimonials** — 6 elegant review cards (5 stars, name, location, review).
-9. **FAQ** — accordion (shadcn) with the 5 questions.
-10. **CTA** — dark navy band, "Ready for a Spotless Space?", red quote button.
-11. **Contact** — company details, working hours, Google Maps embed (keyless iframe for An der Villa Bolle 9A, 12557 Berlin), and the contact/quote form.
-12. **Footer** — logo, quick links, social icons, copyright.
-
-Separate routes for **Privacy Policy** (`/privacy`) and **Imprint / Impressum** (`/imprint`) with their own `head()` metadata (legally expected for a German business), each bilingual.
-
-## Premium extras
-
-Smooth scrolling, scroll progress bar, sticky nav, back-to-top button, floating WhatsApp button (links to `wa.me/491746747501`), lazy-loaded images, micro-interactions, premium shadows, rounded UI. Per-route SEO `head()` with real title/description/OG tags; single H1; semantic HTML; alt text.
-
-## Backend (Lovable Cloud) — form that stores leads + sends email
-
-1. Enable Lovable Cloud.
-2. **`leads` table** — `id`, `name`, `email`, `phone`, `message`, `service` (nullable), `created_at`. RLS: `anon` + `authenticated` may `INSERT` only (no public read); `service_role` full access. Explicit GRANTs included.
-3. Set up Lovable email infrastructure (email domain + infra) so app emails can send.
-4. A **public action route** (`/api/public/*`) validates the form input with Zod, inserts the lead, then sends a notification email to `diamondclean.nh@gmail.com` and a confirmation email to the submitter — both bilingual-aware React Email templates.
-5. Form UI (shadcn + react-hook-form + zod) with client + server validation, loading state, success/error toasts.
+Structure:
+- **Homepage Services section**: 4 image cards, each linking to its detail page ("Learn more").
+- **Nav**: keep your current links (About, Services, Why Us, Process, Contact) and turn **Services** into a dropdown listing the 4 service pages (opens on hover/click, works on mobile too).
+- **4 new detail routes**: `/services/hotel-housekeeping`, `/services/staffing`, `/services/restaurant-cleaning`, `/services/commercial-cleaning`. Each is a real page (own URL, own SEO `head()` title/description) with a hero image, description, bullet points, and a "Request a quote" CTA back to contact.
+- All content bilingual (EN/DE) via the existing translations system. German labels mirror the reference: Hotelreinigung / Personalbesetzung / Restaurantreinigung / Gewerbereinigung.
 
 ## Technical notes
+- New files: `src/routes/services.hotel-housekeeping.tsx`, `services.staffing.tsx`, `services.restaurant-cleaning.tsx`, `services.commercial-cleaning.tsx`, and a shared `ServiceDetail` component.
+- Reuse existing premium service images already in `src/assets` (hero + gallery images) for the cards and detail heroes; no reference-site images copied.
+- Nav dropdown built with existing shadcn primitives + Framer Motion; mobile menu gets an expandable Services group.
+- Update `src/lib/translations.ts`: trim services to the 4 categories, add per-page detail copy, remove `counters`, update nav/footer link lists.
+- Footer logo uses the existing `logo.jpeg.asset.json` image asset.
 
-- Stack is the project's TanStack Start + React + Tailwind v4 (equivalent to the requested React/Tailwind/Framer Motion; Next.js patterns are not used here).
-- Contact form posts to the public server route (no auth needed for a public quote form); the route handles DB insert + email.
-- Google Maps uses a standard keyless embed iframe (no API key required).
-- Images generated to match the premium brand rather than embedding the reference site.
-
-## What I need from you later (optional)
-
-- Real Privacy/Imprint legal text (I'll add professional placeholder content you can replace).
-- Confirmation that `diamondclean.nh@gmail.com` is where quote notifications should go (used as-is from the brief).
+No backend or contact-form changes.

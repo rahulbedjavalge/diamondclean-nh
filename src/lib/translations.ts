@@ -1,5 +1,14 @@
 export type Lang = "en" | "de";
 
+export const SERVICE_SLUGS = [
+  "hotel-housekeeping",
+  "staffing",
+  "restaurant-cleaning",
+  "commercial-cleaning",
+] as const;
+
+export type ServiceSlug = (typeof SERVICE_SLUGS)[number];
+
 export const translations = {
   en: {
     nav: {
@@ -7,7 +16,6 @@ export const translations = {
       services: "Services",
       why: "Why Us",
       process: "Process",
-      gallery: "Gallery",
       contact: "Contact",
       quote: "Get Quote",
     },
@@ -19,9 +27,6 @@ export const translations = {
         "We deliver spotless cleaning services for offices, apartments, commercial spaces and more.",
       quote: "Get Free Quote",
       call: "Call Now",
-      stat1: "Satisfaction",
-      stat2: "Trained Staff",
-      stat3: "Eco Friendly",
     },
     about: {
       tag: "About Us",
@@ -35,29 +40,116 @@ export const translations = {
         { title: "Eco Friendly", desc: "Safe, sustainable cleaning products." },
         { title: "Customer Satisfaction", desc: "We're not done until you're delighted." },
       ],
-      counters: [
-        { value: 500, suffix: "+", label: "Happy Clients" },
-        { value: 10, suffix: "+", label: "Years Experience" },
-        { value: 12000, suffix: "+", label: "Cleanings Done" },
-        { value: 100, suffix: "%", label: "Insured" },
-      ],
     },
     services: {
       tag: "What We Do",
       title: "Our Cleaning Services",
       subtitle: "Premium cleaning solutions tailored to every space.",
+      learnMore: "Learn more",
       items: [
-        { title: "Office Cleaning", desc: "Pristine workspaces that impress every visitor." },
-        { title: "Commercial Cleaning", desc: "Reliable upkeep for commercial properties." },
-        { title: "Residential Cleaning", desc: "A spotless home, exactly the way you like it." },
-        { title: "Move-In / Move-Out", desc: "Fresh starts with a deep, thorough clean." },
-        { title: "Deep Cleaning", desc: "Top-to-bottom detailing for every corner." },
-        { title: "Window Cleaning", desc: "Streak-free, crystal-clear glass every time." },
-        { title: "Staircase Cleaning", desc: "Immaculate shared spaces and stairwells." },
-        { title: "Restaurant Cleaning", desc: "Hygienic, compliant kitchens and dining areas." },
-        { title: "Hotel Cleaning", desc: "Five-star standards for every guest room." },
-        { title: "Airbnb Cleaning", desc: "Fast turnovers that earn five-star reviews." },
+        {
+          title: "Hotel Housekeeping",
+          desc: "Five-star room and common-area cleaning that keeps guests coming back.",
+        },
+        {
+          title: "Staffing",
+          desc: "Reliable hospitality personnel for breakfast, reception and night service.",
+        },
+        {
+          title: "Restaurant Cleaning",
+          desc: "Hygienic, compliant kitchens and dining areas your guests will trust.",
+        },
+        {
+          title: "Commercial Cleaning",
+          desc: "Dependable upkeep for offices and commercial properties of any size.",
+        },
       ],
+    },
+    servicePages: {
+      "hotel-housekeeping": {
+        metaTitle: "Hotel Housekeeping in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Professional hotel housekeeping in Berlin. Spotless guest rooms, common areas and reliable turnovers to five-star standards.",
+        title: "Hotel Housekeeping",
+        subtitle: "Five-star cleanliness for every guest.",
+        intro:
+          "We specialise in the cleaning of hotels and hospitality establishments, delivering the consistent, professional standard your guests expect.",
+        paragraphs: [
+          "Our trained housekeeping team handles guest rooms, bathrooms, hallways and common areas with meticulous attention to detail — so every guest walks into a spotless, welcoming space.",
+          "We adapt to your occupancy and turnover schedule, ensuring fast, reliable room readiness without ever compromising on quality.",
+        ],
+        points: [
+          "Guest room & bathroom cleaning",
+          "Common areas & hallways",
+          "Fast, reliable room turnovers",
+          "Restocking & presentation",
+          "Flexible, occupancy-based scheduling",
+          "Trained, discreet housekeeping staff",
+        ],
+      },
+      staffing: {
+        metaTitle: "Hospitality Staffing in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Reliable hospitality staffing in Berlin for breakfast service, reception and night duty. Professional, vetted personnel when you need them.",
+        title: "Staffing",
+        subtitle: "Professional hospitality personnel.",
+        intro:
+          "Beyond cleaning, we provide dependable service personnel for the breakfast, reception and night-service areas of your establishment.",
+        paragraphs: [
+          "Whether you need to cover peak periods, holidays or unexpected gaps, our vetted staff integrate seamlessly into your team and uphold your service standards.",
+          "We offer a complete package designed to meet — and exceed — the everyday operational needs of hotels and hospitality businesses.",
+        ],
+        points: [
+          "Breakfast service staff",
+          "Reception & front-desk support",
+          "Night-service personnel",
+          "Cover for peaks & holidays",
+          "Vetted, experienced professionals",
+          "Flexible short- and long-term placement",
+        ],
+      },
+      "restaurant-cleaning": {
+        metaTitle: "Restaurant Cleaning in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Hygienic restaurant and kitchen cleaning in Berlin. Compliant, thorough cleaning for dining areas, kitchens and back-of-house.",
+        title: "Restaurant Cleaning",
+        subtitle: "Hygienic, inspection-ready spaces.",
+        intro:
+          "We keep restaurants, kitchens and dining areas hygienic, compliant and ready to impress every guest.",
+        paragraphs: [
+          "Our team handles the detailed, demanding work of back-of-house and front-of-house cleaning, helping you pass inspections and maintain the highest hygiene standards.",
+          "From deep kitchen cleaning to spotless dining rooms, we deliver a consistent result you can rely on, day after day.",
+        ],
+        points: [
+          "Kitchen & back-of-house deep cleaning",
+          "Dining area & seating cleaning",
+          "Surface & equipment sanitisation",
+          "Floors, restrooms & touchpoints",
+          "Hygiene-compliant processes",
+          "Flexible out-of-hours scheduling",
+        ],
+      },
+      "commercial-cleaning": {
+        metaTitle: "Commercial & Office Cleaning in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Reliable commercial and office cleaning in Berlin. Consistent upkeep for offices and commercial properties of any size.",
+        title: "Commercial Cleaning",
+        subtitle: "Pristine offices & commercial spaces.",
+        intro:
+          "We provide reliable, professional cleaning for offices and commercial properties, keeping your workspace pristine and productive.",
+        paragraphs: [
+          "A clean workplace makes a strong first impression and supports a healthier, happier team. Our staff deliver consistent results tailored to your premises and schedule.",
+          "From daily office upkeep to periodic deep cleans, we offer flexible plans built around the way your business works.",
+        ],
+        points: [
+          "Office & workspace cleaning",
+          "Commercial & retail premises",
+          "Floors, glass & surfaces",
+          "Restrooms & shared areas",
+          "One-off or recurring plans",
+          "Fully insured, professional team",
+        ],
+      },
     },
     why: {
       tag: "Why Choose Us",
@@ -84,11 +176,6 @@ export const translations = {
         { title: "Schedule Cleaning", desc: "Pick a time that works — one-off or recurring." },
         { title: "Enjoy a Spotless Space", desc: "Relax while our team delivers perfection." },
       ],
-    },
-    gallery: {
-      tag: "Our Work",
-      title: "Spotless Results",
-      subtitle: "A glimpse of the immaculate spaces we deliver.",
     },
     testimonials: {
       tag: "Testimonials",
@@ -164,6 +251,13 @@ export const translations = {
       imprintTitle: "Imprint",
       lastUpdated: "Last updated",
     },
+    service: {
+      backToServices: "All services",
+      requestQuote: "Request a quote",
+      whatWeOffer: "What we offer",
+      ctaTitle: "Ready to get started?",
+      ctaSubtitle: "Request your free, no-obligation quote today.",
+    },
   },
   de: {
     nav: {
@@ -171,7 +265,6 @@ export const translations = {
       services: "Leistungen",
       why: "Warum wir",
       process: "Ablauf",
-      gallery: "Galerie",
       contact: "Kontakt",
       quote: "Angebot",
     },
@@ -183,9 +276,6 @@ export const translations = {
         "Wir sorgen für makellose Sauberkeit in Büros, Wohnungen, Gewerbeflächen und mehr.",
       quote: "Kostenloses Angebot",
       call: "Jetzt anrufen",
-      stat1: "Zufriedenheit",
-      stat2: "Geschultes Personal",
-      stat3: "Umweltfreundlich",
     },
     about: {
       tag: "Über uns",
@@ -199,29 +289,116 @@ export const translations = {
         { title: "Umweltfreundlich", desc: "Sichere, nachhaltige Reinigungsprodukte." },
         { title: "Kundenzufriedenheit", desc: "Wir hören erst auf, wenn Sie begeistert sind." },
       ],
-      counters: [
-        { value: 500, suffix: "+", label: "Zufriedene Kunden" },
-        { value: 10, suffix: "+", label: "Jahre Erfahrung" },
-        { value: 12000, suffix: "+", label: "Reinigungen" },
-        { value: 100, suffix: "%", label: "Versichert" },
-      ],
     },
     services: {
       tag: "Unsere Leistungen",
       title: "Unsere Reinigungsdienste",
       subtitle: "Premium-Reinigungslösungen für jeden Raum.",
+      learnMore: "Mehr erfahren",
       items: [
-        { title: "Büroreinigung", desc: "Makellose Arbeitsplätze, die jeden Besucher beeindrucken." },
-        { title: "Gewerbereinigung", desc: "Zuverlässige Pflege für Gewerbeimmobilien." },
-        { title: "Wohnungsreinigung", desc: "Ein makelloses Zuhause, ganz nach Ihrem Wunsch." },
-        { title: "Ein-/Auszugsreinigung", desc: "Ein frischer Start mit gründlicher Tiefenreinigung." },
-        { title: "Grundreinigung", desc: "Detailreinigung von oben bis unten, in jeder Ecke." },
-        { title: "Fensterreinigung", desc: "Streifenfrei, kristallklar – jedes Mal." },
-        { title: "Treppenhausreinigung", desc: "Makellose Gemeinschaftsflächen und Treppenhäuser." },
-        { title: "Restaurantreinigung", desc: "Hygienische, konforme Küchen und Gasträume." },
-        { title: "Hotelreinigung", desc: "Fünf-Sterne-Standard für jedes Gästezimmer." },
-        { title: "Airbnb-Reinigung", desc: "Schnelle Wechsel für Fünf-Sterne-Bewertungen." },
+        {
+          title: "Hotelreinigung",
+          desc: "Fünf-Sterne-Reinigung von Zimmern und Gemeinschaftsflächen, die Gäste wiederkommen lässt.",
+        },
+        {
+          title: "Personalbesetzung",
+          desc: "Zuverlässiges Servicepersonal für Frühstück, Empfang und Nachtdienst.",
+        },
+        {
+          title: "Restaurantreinigung",
+          desc: "Hygienische, konforme Küchen und Gasträume, denen Ihre Gäste vertrauen.",
+        },
+        {
+          title: "Gewerbereinigung",
+          desc: "Zuverlässige Pflege für Büros und Gewerbeimmobilien jeder Größe.",
+        },
       ],
+    },
+    servicePages: {
+      "hotel-housekeeping": {
+        metaTitle: "Hotelreinigung in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Professionelle Hotelreinigung in Berlin. Makellose Gästezimmer, Gemeinschaftsflächen und zuverlässige Zimmerwechsel auf Fünf-Sterne-Niveau.",
+        title: "Hotelreinigung",
+        subtitle: "Fünf-Sterne-Sauberkeit für jeden Gast.",
+        intro:
+          "Wir sind auf die Reinigung von Hotels und Einrichtungen im Gastgewerbe spezialisiert und liefern den konstanten, professionellen Standard, den Ihre Gäste erwarten.",
+        paragraphs: [
+          "Unser geschultes Housekeeping-Team reinigt Gästezimmer, Bäder, Flure und Gemeinschaftsflächen mit größter Sorgfalt – damit jeder Gast einen makellosen, einladenden Raum betritt.",
+          "Wir richten uns nach Ihrer Auslastung und Ihrem Wechselplan und sorgen für schnelle, verlässliche Zimmerbereitstellung ohne Qualitätsverlust.",
+        ],
+        points: [
+          "Reinigung von Zimmern & Bädern",
+          "Gemeinschaftsflächen & Flure",
+          "Schnelle, zuverlässige Zimmerwechsel",
+          "Auffüllen & Präsentation",
+          "Flexible, auslastungsbasierte Planung",
+          "Geschultes, diskretes Personal",
+        ],
+      },
+      staffing: {
+        metaTitle: "Personalbesetzung im Gastgewerbe in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Zuverlässige Personalbesetzung in Berlin für Frühstücksservice, Empfang und Nachtdienst. Professionelles, geprüftes Personal, wenn Sie es brauchen.",
+        title: "Personalbesetzung",
+        subtitle: "Professionelles Servicepersonal.",
+        intro:
+          "Über die Reinigung hinaus stellen wir zuverlässiges Servicepersonal für die Bereiche Frühstück, Empfang und Nachtdienst Ihrer Einrichtung.",
+        paragraphs: [
+          "Ob Stoßzeiten, Feiertage oder unerwartete Ausfälle – unser geprüftes Personal fügt sich nahtlos in Ihr Team ein und wahrt Ihre Servicestandards.",
+          "Wir bieten ein umfassendes Paket, das die täglichen betrieblichen Anforderungen von Hotels und Gastbetrieben erfüllt und übertrifft.",
+        ],
+        points: [
+          "Personal für den Frühstücksservice",
+          "Empfang & Front-Desk-Unterstützung",
+          "Personal für den Nachtdienst",
+          "Abdeckung von Spitzen & Feiertagen",
+          "Geprüfte, erfahrene Fachkräfte",
+          "Flexibler kurz- und langfristiger Einsatz",
+        ],
+      },
+      "restaurant-cleaning": {
+        metaTitle: "Restaurantreinigung in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Hygienische Restaurant- und Küchenreinigung in Berlin. Konforme, gründliche Reinigung für Gasträume, Küchen und Back-of-House.",
+        title: "Restaurantreinigung",
+        subtitle: "Hygienische, kontrollbereite Räume.",
+        intro:
+          "Wir halten Restaurants, Küchen und Gasträume hygienisch, konform und bereit, jeden Gast zu beeindrucken.",
+        paragraphs: [
+          "Unser Team übernimmt die anspruchsvolle Detailarbeit im Back- und Front-of-House und hilft Ihnen, Kontrollen zu bestehen und höchste Hygienestandards zu wahren.",
+          "Von der Küchengrundreinigung bis zum makellosen Gastraum liefern wir Tag für Tag ein verlässliches Ergebnis.",
+        ],
+        points: [
+          "Küchen- & Back-of-House-Grundreinigung",
+          "Gastraum- & Sitzbereichsreinigung",
+          "Oberflächen- & Gerätehygiene",
+          "Böden, Toiletten & Kontaktpunkte",
+          "Hygienekonforme Prozesse",
+          "Flexible Reinigung außerhalb der Öffnungszeiten",
+        ],
+      },
+      "commercial-cleaning": {
+        metaTitle: "Gewerbe- & Büroreinigung in Berlin — Diamond Clean NH",
+        metaDescription:
+          "Zuverlässige Gewerbe- und Büroreinigung in Berlin. Konstante Pflege für Büros und Gewerbeimmobilien jeder Größe.",
+        title: "Gewerbereinigung",
+        subtitle: "Makellose Büros & Gewerbeflächen.",
+        intro:
+          "Wir bieten zuverlässige, professionelle Reinigung für Büros und Gewerbeimmobilien und halten Ihren Arbeitsplatz makellos und produktiv.",
+        paragraphs: [
+          "Ein sauberer Arbeitsplatz hinterlässt einen starken ersten Eindruck und unterstützt ein gesünderes, zufriedeneres Team. Unser Personal liefert konstante Ergebnisse, abgestimmt auf Ihre Räume und Termine.",
+          "Von der täglichen Büropflege bis zur regelmäßigen Grundreinigung bieten wir flexible Pläne, die zu Ihrem Betrieb passen.",
+        ],
+        points: [
+          "Büro- & Arbeitsplatzreinigung",
+          "Gewerbe- & Einzelhandelsflächen",
+          "Böden, Glas & Oberflächen",
+          "Toiletten & Gemeinschaftsbereiche",
+          "Einmalig oder regelmäßig",
+          "Vollständig versichertes, professionelles Team",
+        ],
+      },
     },
     why: {
       tag: "Warum wir",
@@ -248,11 +425,6 @@ export const translations = {
         { title: "Termin vereinbaren", desc: "Wählen Sie Ihren Wunschtermin – einmalig oder regelmäßig." },
         { title: "Makellosen Raum genießen", desc: "Entspannen Sie, während unser Team perfekt arbeitet." },
       ],
-    },
-    gallery: {
-      tag: "Unsere Arbeit",
-      title: "Makellose Ergebnisse",
-      subtitle: "Ein Einblick in die makellosen Räume, die wir schaffen.",
     },
     testimonials: {
       tag: "Referenzen",
@@ -327,6 +499,13 @@ export const translations = {
       privacyTitle: "Datenschutzerklärung",
       imprintTitle: "Impressum",
       lastUpdated: "Zuletzt aktualisiert",
+    },
+    service: {
+      backToServices: "Alle Leistungen",
+      requestQuote: "Angebot anfordern",
+      whatWeOffer: "Was wir bieten",
+      ctaTitle: "Bereit loszulegen?",
+      ctaSubtitle: "Fordern Sie noch heute Ihr kostenloses, unverbindliches Angebot an.",
     },
   },
 };
