@@ -1,7 +1,6 @@
 import { CheckCircle2, Leaf, ShieldCheck, Users } from "lucide-react";
 import aboutImg from "@/assets/about.jpg";
 import { Reveal } from "../Reveal";
-import { AnimatedCounter } from "../AnimatedCounter";
 import { SectionHeading } from "../SectionHeading";
 import { useI18n } from "@/lib/i18n";
 
@@ -24,14 +23,6 @@ export function About() {
                 height={1280}
                 loading="lazy"
               />
-            </div>
-            <div className="absolute -bottom-6 -right-3 hidden rounded-2xl bg-navy px-6 py-4 text-navy-foreground shadow-elegant sm:block lg:-right-6">
-              <div className="font-display text-3xl font-extrabold">
-                <AnimatedCounter value={10} suffix="+" />
-              </div>
-              <div className="text-xs uppercase tracking-wide text-navy-foreground/70">
-                {t.about.counters[1].label}
-              </div>
             </div>
           </Reveal>
 
@@ -72,19 +63,6 @@ export function About() {
               })}
             </div>
           </div>
-        </div>
-
-        <div className="mt-20 grid gap-6 rounded-3xl border border-border bg-secondary/50 p-8 sm:grid-cols-2 lg:grid-cols-4 lg:p-12">
-          {t.about.counters.map((c, i) => (
-            <Reveal key={c.label} delay={i} className="text-center">
-              <div className="font-display text-4xl font-extrabold text-primary sm:text-5xl">
-                <AnimatedCounter value={c.value} suffix={c.suffix} />
-              </div>
-              <div className="mt-2 text-sm font-semibold text-muted-foreground">
-                {c.label}
-              </div>
-            </Reveal>
-          ))}
         </div>
       </div>
     </section>

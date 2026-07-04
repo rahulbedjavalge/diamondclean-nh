@@ -93,28 +93,9 @@ export function Hero() {
               </a>
             </Button>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.55 }}
-            className="mt-12 flex flex-wrap gap-x-10 gap-y-4 text-white"
-          >
-            {[
-              { v: "100%", l: t.hero.stat1 },
-              { v: "500+", l: t.hero.stat2 },
-              { v: "Eco", l: t.hero.stat3 },
-            ].map((s) => (
-              <div key={s.l}>
-                <div className="font-display text-2xl font-extrabold">{s.v}</div>
-                <div className="text-xs uppercase tracking-wide text-white/60">
-                  {s.l}
-                </div>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </div>
+
 
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
     </section>
