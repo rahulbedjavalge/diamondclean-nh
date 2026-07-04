@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "../SectionHeading";
 import { useI18n } from "@/lib/i18n";
 import { SERVICE_SLUGS } from "@/lib/translations";
-import { SERVICE_IMAGES } from "@/lib/service-images";
+import { SERVICE_IMAGES, SERVICE_PATHS } from "@/lib/service-images";
 
 export function Services() {
   const { t } = useI18n();
@@ -30,10 +30,10 @@ export function Services() {
                 transition={{ duration: 0.5, delay: i * 0.08 }}
               >
                 <Link
-                  to="/services/$"
-                  params={{ _splat: slug }}
+                  to={SERVICE_PATHS[slug]}
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-shadow hover:shadow-card"
                 >
+
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <img
                       src={SERVICE_IMAGES[slug]}
