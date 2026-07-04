@@ -329,7 +329,7 @@ export const translations = {
       lastUpdated: "Zuletzt aktualisiert",
     },
   },
-} as const;
+};
 
 export const COMPANY = {
   name: "Diamond Clean NH",
