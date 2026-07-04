@@ -12,6 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ImprintRouteImport } from './routes/imprint'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesStaffingRouteImport } from './routes/services.staffing'
+import { Route as ServicesRestaurantCleaningRouteImport } from './routes/services.restaurant-cleaning'
+import { Route as ServicesHotelHousekeepingRouteImport } from './routes/services.hotel-housekeeping'
+import { Route as ServicesCommercialCleaningRouteImport } from './routes/services.commercial-cleaning'
 
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
@@ -28,35 +32,96 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesStaffingRoute = ServicesStaffingRouteImport.update({
+  id: '/services/staffing',
+  path: '/services/staffing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRestaurantCleaningRoute =
+  ServicesRestaurantCleaningRouteImport.update({
+    id: '/services/restaurant-cleaning',
+    path: '/services/restaurant-cleaning',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesHotelHousekeepingRoute =
+  ServicesHotelHousekeepingRouteImport.update({
+    id: '/services/hotel-housekeeping',
+    path: '/services/hotel-housekeeping',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ServicesCommercialCleaningRoute =
+  ServicesCommercialCleaningRouteImport.update({
+    id: '/services/commercial-cleaning',
+    path: '/services/commercial-cleaning',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
+  '/services/commercial-cleaning': typeof ServicesCommercialCleaningRoute
+  '/services/hotel-housekeeping': typeof ServicesHotelHousekeepingRoute
+  '/services/restaurant-cleaning': typeof ServicesRestaurantCleaningRoute
+  '/services/staffing': typeof ServicesStaffingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
+  '/services/commercial-cleaning': typeof ServicesCommercialCleaningRoute
+  '/services/hotel-housekeeping': typeof ServicesHotelHousekeepingRoute
+  '/services/restaurant-cleaning': typeof ServicesRestaurantCleaningRoute
+  '/services/staffing': typeof ServicesStaffingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
+  '/services/commercial-cleaning': typeof ServicesCommercialCleaningRoute
+  '/services/hotel-housekeeping': typeof ServicesHotelHousekeepingRoute
+  '/services/restaurant-cleaning': typeof ServicesRestaurantCleaningRoute
+  '/services/staffing': typeof ServicesStaffingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/imprint' | '/privacy'
+  fullPaths:
+    | '/'
+    | '/imprint'
+    | '/privacy'
+    | '/services/commercial-cleaning'
+    | '/services/hotel-housekeeping'
+    | '/services/restaurant-cleaning'
+    | '/services/staffing'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/imprint' | '/privacy'
-  id: '__root__' | '/' | '/imprint' | '/privacy'
+  to:
+    | '/'
+    | '/imprint'
+    | '/privacy'
+    | '/services/commercial-cleaning'
+    | '/services/hotel-housekeeping'
+    | '/services/restaurant-cleaning'
+    | '/services/staffing'
+  id:
+    | '__root__'
+    | '/'
+    | '/imprint'
+    | '/privacy'
+    | '/services/commercial-cleaning'
+    | '/services/hotel-housekeeping'
+    | '/services/restaurant-cleaning'
+    | '/services/staffing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ImprintRoute: typeof ImprintRoute
   PrivacyRoute: typeof PrivacyRoute
+  ServicesCommercialCleaningRoute: typeof ServicesCommercialCleaningRoute
+  ServicesHotelHousekeepingRoute: typeof ServicesHotelHousekeepingRoute
+  ServicesRestaurantCleaningRoute: typeof ServicesRestaurantCleaningRoute
+  ServicesStaffingRoute: typeof ServicesStaffingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +147,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/staffing': {
+      id: '/services/staffing'
+      path: '/services/staffing'
+      fullPath: '/services/staffing'
+      preLoaderRoute: typeof ServicesStaffingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/restaurant-cleaning': {
+      id: '/services/restaurant-cleaning'
+      path: '/services/restaurant-cleaning'
+      fullPath: '/services/restaurant-cleaning'
+      preLoaderRoute: typeof ServicesRestaurantCleaningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/hotel-housekeeping': {
+      id: '/services/hotel-housekeeping'
+      path: '/services/hotel-housekeeping'
+      fullPath: '/services/hotel-housekeeping'
+      preLoaderRoute: typeof ServicesHotelHousekeepingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/commercial-cleaning': {
+      id: '/services/commercial-cleaning'
+      path: '/services/commercial-cleaning'
+      fullPath: '/services/commercial-cleaning'
+      preLoaderRoute: typeof ServicesCommercialCleaningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +182,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ImprintRoute: ImprintRoute,
   PrivacyRoute: PrivacyRoute,
+  ServicesCommercialCleaningRoute: ServicesCommercialCleaningRoute,
+  ServicesHotelHousekeepingRoute: ServicesHotelHousekeepingRoute,
+  ServicesRestaurantCleaningRoute: ServicesRestaurantCleaningRoute,
+  ServicesStaffingRoute: ServicesStaffingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
