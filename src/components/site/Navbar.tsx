@@ -61,10 +61,10 @@ export function Navbar() {
           <Logo />
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className="hidden items-center gap-1.5 lg:flex">
           <a
             href="/#about"
-            className="rounded-full px-3.5 py-2 text-sm font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground"
+            className="rounded-full px-4 py-2.5 text-base font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground"
           >
             {t.nav.about}
           </a>
@@ -76,10 +76,10 @@ export function Navbar() {
           >
             <a
               href="/#services"
-              className="flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground"
+              className="flex items-center gap-1 rounded-full px-4 py-2.5 text-base font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground"
             >
               {t.nav.services}
-              <ChevronDown className="h-3.5 w-3.5" />
+              <ChevronDown className="h-4 w-4" />
             </a>
             <AnimatePresence>
               {servicesOpen && (
@@ -111,7 +111,7 @@ export function Navbar() {
             <a
               key={l.id}
               href={`/#${l.id}`}
-              className="rounded-full px-3.5 py-2 text-sm font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground"
+              className="rounded-full px-4 py-2.5 text-base font-semibold text-foreground/80 transition-colors hover:bg-secondary hover:text-foreground"
             >
               {l.label}
             </a>
