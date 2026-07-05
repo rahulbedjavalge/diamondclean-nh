@@ -235,8 +235,15 @@ export const translations = {
         success: "Thank you — we've received your request and will be in touch shortly.",
         errorTitle: "Something went wrong",
         error: "Your request couldn't be sent. Please try again or call us directly.",
+        errors: {
+          name: "Please enter your name.",
+          email: "Please enter a valid email address.",
+          phone: "Please enter a valid phone number.",
+          message: "Please tell us a little about what you need.",
+        },
       },
     },
+
     footer: {
       tagline: "Premium cleaning services for offices, homes and commercial spaces across Berlin.",
       quickLinks: "Quick Links",
