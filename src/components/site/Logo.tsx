@@ -1,5 +1,5 @@
 import { Gem } from "lucide-react";
-import logo from "@/assets/logo.jpeg.asset.json";
+import logo from "@/assets/logo-hd.png.asset.json";
 import { cn } from "@/lib/utils";
 
 export function Logo({
@@ -28,14 +28,13 @@ export function Logo({
       src={logo.url}
       alt="Diamond Clean NH — professional cleaning services in Berlin"
       className={cn(
-        "h-16 w-auto object-contain sm:h-20 lg:h-24",
+        "h-12 w-auto object-contain sm:h-14 lg:h-16",
         className,
       )}
-      width={360}
-      height={96}
+      width={1121}
+      height={813}
       loading="eager"
       decoding="async"
     />
   );
-
 }
