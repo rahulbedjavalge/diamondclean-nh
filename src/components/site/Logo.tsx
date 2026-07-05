@@ -1,5 +1,5 @@
 import { Gem } from "lucide-react";
-import logo from "@/assets/logo.jpeg.asset.json";
+import logo from "@/assets/logo-hd.png.asset.json";
 import { cn } from "@/lib/utils";
 
 export function Logo({
