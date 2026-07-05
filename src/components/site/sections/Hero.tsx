@@ -26,7 +26,7 @@ export function Hero() {
 
       <Sparkles />
 
-      <div className="mx-auto w-full max-w-7xl px-4 pt-28 pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-4 pt-32 pb-20 sm:px-6 sm:pt-36 lg:px-8 lg:pt-40">
         <div className="max-w-3xl">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
