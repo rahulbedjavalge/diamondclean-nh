@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Loader2, Send } from "lucide-react";
+import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,27 +19,30 @@ import {
 import { submitContact } from "@/lib/contact.functions";
 import { useI18n } from "@/lib/i18n";
 
-const schema = z.object({
-  name: z.string().trim().min(1).max(100),
-  email: z.string().trim().email().max(255),
-  phone: z.string().trim().max(40).optional(),
-  service: z.string().optional(),
-  message: z.string().trim().min(1).max(2000),
-});
-
-type FormValues = z.infer<typeof schema>;
-
 export function ContactForm() {
   const { t, lang } = useI18n();
   const send = useServerFn(submitContact);
   const [service, setService] = useState<string>("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const f = t.contact.form;
+
+  const schema = z.object({
+    name: z.string().trim().min(1, f.errors.name).max(100, f.errors.name),
+    email: z.string().trim().email(f.errors.email).max(255, f.errors.email),
+    phone: z.string().trim().max(40, f.errors.phone).optional(),
+    service: z.string().optional(),
+    message: z.string().trim().min(1, f.errors.message).max(2000, f.errors.message),
+  });
+
+  type FormValues = z.infer<typeof schema>;
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({ resolver: zodResolver(schema), mode: "onBlur" });
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -53,19 +56,36 @@ export function ContactForm() {
           lang,
         },
       });
-      toast.success(t.contact.form.successTitle, {
-        description: t.contact.form.success,
-      });
+      toast.success(f.successTitle, { description: f.success });
+      setSubmitted(true);
       reset();
       setService("");
     } catch {
-      toast.error(t.contact.form.errorTitle, {
-        description: t.contact.form.error,
-      });
+      toast.error(f.errorTitle, { description: f.error });
     }
   };
 
-  const f = t.contact.form;
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 py-10 text-center">
+        <div className="grid h-16 w-16 place-items-center rounded-full bg-primary/10 text-primary">
+          <CheckCircle2 className="h-8 w-8" />
+        </div>
+        <h3 className="font-display text-2xl font-bold text-navy">
+          {f.successTitle}
+        </h3>
+        <p className="max-w-sm text-muted-foreground">{f.success}</p>
+        <Button
+          type="button"
+          variant="outline"
+          className="mt-2 rounded-full font-semibold"
+          onClick={() => setSubmitted(false)}
+        >
+          {f.submit}
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
@@ -78,6 +98,11 @@ export function ContactForm() {
             aria-invalid={!!errors.name}
             {...register("name")}
           />
+          {errors.name && (
+            <p className="text-sm font-medium text-destructive">
+              {errors.name.message}
+            </p>
+          )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="email">{f.email}</Label>
@@ -88,6 +113,11 @@ export function ContactForm() {
             aria-invalid={!!errors.email}
             {...register("email")}
           />
+          {errors.email && (
+            <p className="text-sm font-medium text-destructive">
+              {errors.email.message}
+            </p>
+          )}
         </div>
       </div>
 
@@ -97,8 +127,14 @@ export function ContactForm() {
           <Input
             id="phone"
             placeholder={f.phonePh}
+            aria-invalid={!!errors.phone}
             {...register("phone")}
           />
+          {errors.phone && (
+            <p className="text-sm font-medium text-destructive">
+              {errors.phone.message}
+            </p>
+          )}
         </div>
         <div className="space-y-2">
           <Label htmlFor="service">{f.service}</Label>
@@ -126,6 +162,11 @@ export function ContactForm() {
           aria-invalid={!!errors.message}
           {...register("message")}
         />
+        {errors.message && (
+          <p className="text-sm font-medium text-destructive">
+            {errors.message.message}
+          </p>
+        )}
       </div>
 
       <Button
