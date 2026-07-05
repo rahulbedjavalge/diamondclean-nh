@@ -491,8 +491,15 @@ export const translations = {
         success: "Vielen Dank – wir haben Ihre Anfrage erhalten und melden uns in Kürze.",
         errorTitle: "Etwas ist schiefgelaufen",
         error: "Ihre Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder rufen Sie uns direkt an.",
+        errors: {
+          name: "Bitte geben Sie Ihren Namen ein.",
+          email: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+          phone: "Bitte geben Sie eine gültige Telefonnummer ein.",
+          message: "Bitte teilen Sie uns kurz mit, was Sie benötigen.",
+        },
       },
     },
+
     footer: {
       tagline: "Premium-Reinigungsdienste für Büros, Wohnungen und Gewerbeflächen in ganz Berlin.",
       quickLinks: "Schnellzugriff",
