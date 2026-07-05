@@ -27,9 +27,14 @@ export function Logo({
     <img
       src={logo.url}
       alt="Diamond Clean NH — professional cleaning services in Berlin"
-      className={cn("h-16 w-auto object-contain sm:h-[68px]", className)}
-      width={220}
-      height={68}
+      className={cn(
+        "h-16 w-auto object-contain sm:h-20 lg:h-24",
+        className,
+      )}
+      width={360}
+      height={96}
+      loading="eager"
+      decoding="async"
     />
   );
 
