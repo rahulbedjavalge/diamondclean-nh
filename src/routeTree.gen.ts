@@ -11,11 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ImprintRouteImport } from './routes/imprint'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesStaffingRouteImport } from './routes/services.staffing'
 import { Route as ServicesRestaurantCleaningRouteImport } from './routes/services.restaurant-cleaning'
 import { Route as ServicesHotelHousekeepingRouteImport } from './routes/services.hotel-housekeeping'
 import { Route as ServicesCommercialCleaningRouteImport } from './routes/services.commercial-cleaning'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
@@ -25,6 +28,15 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const ImprintRoute = ImprintRouteImport.update({
   id: '/imprint',
   path: '/imprint',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -55,11 +67,18 @@ const ServicesCommercialCleaningRoute =
     path: '/services/commercial-cleaning',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/services/commercial-cleaning': typeof ServicesCommercialCleaningRoute
   '/services/hotel-housekeeping': typeof ServicesHotelHousekeepingRoute
   '/services/restaurant-cleaning': typeof ServicesRestaurantCleaningRoute
@@ -67,8 +86,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/services/commercial-cleaning': typeof ServicesCommercialCleaningRoute
   '/services/hotel-housekeeping': typeof ServicesHotelHousekeepingRoute
   '/services/restaurant-cleaning': typeof ServicesRestaurantCleaningRoute
@@ -77,8 +98,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/services/commercial-cleaning': typeof ServicesCommercialCleaningRoute
   '/services/hotel-housekeeping': typeof ServicesHotelHousekeepingRoute
   '/services/restaurant-cleaning': typeof ServicesRestaurantCleaningRoute
@@ -88,8 +112,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/imprint'
     | '/privacy'
+    | '/admin'
     | '/services/commercial-cleaning'
     | '/services/hotel-housekeeping'
     | '/services/restaurant-cleaning'
@@ -97,8 +123,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/imprint'
     | '/privacy'
+    | '/admin'
     | '/services/commercial-cleaning'
     | '/services/hotel-housekeeping'
     | '/services/restaurant-cleaning'
@@ -106,8 +134,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/imprint'
     | '/privacy'
+    | '/_authenticated/admin'
     | '/services/commercial-cleaning'
     | '/services/hotel-housekeeping'
     | '/services/restaurant-cleaning'
@@ -116,6 +147,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ImprintRoute: typeof ImprintRoute
   PrivacyRoute: typeof PrivacyRoute
   ServicesCommercialCleaningRoute: typeof ServicesCommercialCleaningRoute
@@ -138,6 +171,20 @@ declare module '@tanstack/react-router' {
       path: '/imprint'
       fullPath: '/imprint'
       preLoaderRoute: typeof ImprintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -175,11 +222,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesCommercialCleaningRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ImprintRoute: ImprintRoute,
   PrivacyRoute: PrivacyRoute,
   ServicesCommercialCleaningRoute: ServicesCommercialCleaningRoute,
