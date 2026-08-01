@@ -10,6 +10,7 @@ const contactSchema = z.object({
   lang: z.enum(["en", "de"]).optional(),
 });
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mzdnljwe";
 const NOTIFY_EMAIL = "diamondclean.nh@gmail.com";
 
 function escapeHtml(value: string): string {
@@ -97,6 +98,36 @@ async function sendLeadEmail(data: {
   }
 }
 
+async function sendFormspreeLead(data: {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+}) {
+  const formData = new URLSearchParams();
+  formData.set("name", data.name);
+  formData.set("email", data.email);
+  formData.set("phone", data.phone || "-");
+  formData.set("service", data.service || "-");
+  formData.set("message", data.message);
+  formData.set("_replyto", data.email);
+  formData.set("_subject", `New enquiry from ${data.name}`);
+
+  const res = await fetch(FORMSPREE_ENDPOINT, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Formspree send failed: ${res.status} ${text}`);
+  }
+}
+
 export const submitContact = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => contactSchema.parse(data))
   .handler(async ({ data }) => {
@@ -117,15 +148,26 @@ export const submitContact = createServerFn({ method: "POST" })
       throw new Error("Failed to save request");
     }
 
-    // Email the lead to the business inbox. Non-blocking: a mail failure
-    // must not prevent the lead from being saved.
-    await sendLeadEmail({
-      name: data.name,
-      email: data.email,
-      phone: data.phone || "",
-      service: data.service || "",
-      message: data.message,
-    });
+    try {
+      await sendFormspreeLead({
+        name: data.name,
+        email: data.email,
+        phone: data.phone || "",
+        service: data.service || "",
+        message: data.message,
+      });
+    } catch (error) {
+      console.error("[submitContact] Formspree send failed:", error);
+
+      // Keep the existing inbox fallback so enquiries still reach the business.
+      await sendLeadEmail({
+        name: data.name,
+        email: data.email,
+        phone: data.phone || "",
+        service: data.service || "",
+        message: data.message,
+      });
+    }
 
     return { ok: true } as const;
   });
