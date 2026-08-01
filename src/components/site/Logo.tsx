@@ -25,7 +25,7 @@ export function Logo({
 
   return (
     <img
-      src={logo.url}
+      src={logo}
       alt="Diamond Clean NH — professional cleaning services in Berlin"
       className={cn(
         "h-12 w-auto object-contain sm:h-14 lg:h-16",

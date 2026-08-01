@@ -23,7 +23,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <span className="inline-flex items-center rounded-2xl bg-white p-3 shadow-elegant">
               <img
-                src={logo.url}
+                src={logo}
                 alt="Diamond Clean NH"
                 className="h-20 w-auto object-contain"
                 width={260}
