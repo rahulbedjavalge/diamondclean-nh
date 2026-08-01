@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
-import logo from "@/assets/logo.jpeg.asset.json";
+import logo from "@/assets/diamond-clean-logo.jpeg";
 import { useI18n } from "@/lib/i18n";
 import { COMPANY } from "@/lib/translations";
 
